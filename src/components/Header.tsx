@@ -84,7 +84,7 @@ const Header = () => {
             </Box>
           )}
 
-          {/* Mobile Menu Icon */}
+          {/* Mobile Menu */}
           {isMobile && (
             <IconButton onClick={() => setDrawerOpen(true)}>
               <MenuIcon />
@@ -93,7 +93,7 @@ const Header = () => {
         </Toolbar>
       </AppBar>
 
-      {/* Drawer for Mobile */}
+      {/* Mobile Drawer */}
       <Drawer
         anchor="right"
         open={drawerOpen}

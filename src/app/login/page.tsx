@@ -18,6 +18,7 @@ import GoogleIcon from "@mui/icons-material/Google";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import { toast } from "react-toastify";
+import { useAuth } from "../context/AuthContext";
 
 const API_BASE = "http://127.0.0.1:8000";
 
@@ -28,7 +29,7 @@ export default function LoginPage() {
   const [remember, setRemember] = useState(false);
   const [seePassword, setSeePassword] = useState(false);
 
-  // const [isLogin, setIsLogin] = useState(false);
+  // const [ isLogin, setIsLogin ] = useAuth()
 
   const router = useRouter();
 
@@ -45,6 +46,8 @@ export default function LoginPage() {
 
       const fetchData = await res.json();
       console.log("Login response:", fetchData);
+
+
 
       if (fetchData.message === 'Login successful') {
         router.push('/');

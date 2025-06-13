@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "@/src/components/Header";
 import Footer from "@/src/components/Footer";
 import { ToastContainer } from 'react-toastify';
+import { AuthProvider } from "./context/AuthContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -39,10 +40,12 @@ export default function RootLayout({
       >
 
         <div className="wrapper flex items-center justify-center min-h-screen flex-col">
-          <Header />
-          <ToastContainer />
-          {children}
-          <Footer />
+          <AuthProvider>
+            <Header />
+            <ToastContainer />
+            {children}
+            <Footer />
+          </AuthProvider>
         </div>
 
       </body>
