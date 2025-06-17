@@ -15,7 +15,7 @@ type Message = {
   sender: "user" | "Bot";
 };
 
-const API_BASE = process.env.NEXT_PUBLIC_API_BASE || "http://127.0.0.1:8000";
+const CHATBOT_URL = process.env.CHATBOT_URL || "http://127.0.0.1:8000";
 
 export default function Chat() {
   //
@@ -38,7 +38,7 @@ export default function Chat() {
     setLoading(true);
 
     try {
-      const res = await fetch(`${API_BASE}/chat`, {
+      const res = await fetch(`${CHATBOT_URL}/chat`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

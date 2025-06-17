@@ -18,42 +18,47 @@ import GoogleIcon from "@mui/icons-material/Google";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import { toast } from "react-toastify";
-// import { useAuth } from "../context/AuthContext";
-
-const API_BASE = "http://127.0.0.1:8000";
+// import { API } from "@/src/lib/api";
+import { useAuth } from "../context/AuthContext";
 
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [remember, setRemember] = useState(false);
+  // const [remember, setRemember] = useState(false);
   const [seePassword, setSeePassword] = useState(false);
 
   // const [ isLogin, setIsLogin ] = useAuth()
+  const { isLoggedIn, user, login } = useAuth();
 
   const router = useRouter();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const res = await fetch(`${API_BASE}/login`, {
+      const res = await fetch("http://localhost:3001/auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email, password, remember }),
+        body: JSON.stringify({ email, password }),
       })
 
       const fetchData = await res.json();
       console.log("Login response:", fetchData);
 
-
-
-      if (fetchData.message === 'Login successful') {
-        router.push('/');
-        toast.success("Đăng nhập thành công!");
+      if (res) {
+        const decodedToken = JSON.parse(atob(fetchData.accessToken.split('.')[1]))
+        const user = {
+          name: decodedToken.name,
+          email: decodedToken.email,
+        }
+  
+        setIsLogin(user, fetchData.accessToken, fetchData.refreshToken)
+        toast.success("Đăng nhập thành công")
+        router.push('/')
       } else {
-        toast.error("Vui lòng kiểm tra lại email và mật khẩu");
+        alert(fetchData.message || 'Đăng nhập thất bại')
       }
     }
     catch (error) {
@@ -117,8 +122,8 @@ export default function LoginPage() {
             <FormControlLabel
               control={
                 <Checkbox
-                  checked={remember}
-                  onChange={(e) => setRemember(e.target.checked)}
+                // checked={remember}
+                // onChange={(e) => setRemember(e.target.checked)}
                 />
               }
               label="Remember me"
@@ -166,6 +171,7 @@ export default function LoginPage() {
               <Box
                 component="span"
                 sx={{ color: "primary.main", cursor: "pointer" }}
+                onClick={()=>router.push('/register')}
               >
                 Sign up
               </Box>

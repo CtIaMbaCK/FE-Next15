@@ -88,10 +88,10 @@ export default function Home() {
       source: "Phòng Tuyển sinh và Truyền thông",
       image: "https://ext.same-assets.com/3671364340/849522504.jpeg",
     },
-  ]; 
+  ];
 
   //  
-  
+
 
   return (
     <motion.div
@@ -292,11 +292,15 @@ export default function Home() {
               py={3}
               px={2}
             >
-              <Typography variant="h6" fontWeight="bold" color="text.primary">
+              <Typography variant="h6" fontWeight="bold" color="text.primary"
+                sx={{
+                  fontSize: isMobile ? "1rem" : "1.5rem"
+                }}>
                 Tin tức nổi bật
               </Typography>
               <Box display="flex" alignItems="center" sx={{ gap: 1 }}>
                 <Button
+                  target="_blank"
                   variant="contained"
                   href="https://tuyensinh.vlu.edu.vn/tin-tuc"
                   sx={{
@@ -320,7 +324,7 @@ export default function Home() {
             <Grid container spacing={3} px={2}>
               {newsData.map((news, index) => (
                 <Grid item xs={12} md={6} lg={4} key={index}>
-                  <Link href={"https://tuyensinh.vlu.edu.vn/nganh-tuyen-sinh"}>
+                  <Link href={"https://tuyensinh.vlu.edu.vn/nganh-tuyen-sinh"} target="_blank">
                     <Card
                       sx={{
                         height: "100%",
